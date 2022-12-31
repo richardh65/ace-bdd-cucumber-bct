@@ -29,7 +29,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: richardh65/bct-tools:v10
-          options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other/code -w /tmp/work/other/code
+          options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |          
             # debug
             echo "============================ root / ========================================"
@@ -38,6 +38,7 @@ jobs:
             ls -la /code
             echo "============================ /tmp/work/other/code ========================================"
             ls -la /tmp/work/other/code
+            echo "============================ setup profile ========================================"
             # make
             . /opt/ibm/ace-12/server/bin/mqsiprofile
             # build-and-run-tests.sh
