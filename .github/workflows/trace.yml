@@ -44,7 +44,7 @@ jobs:
             set -x
 
             # Exit on any error
-            set -e
+            # set -e
 
             mkdir -p /tmp/bdd
             rm -rf /tmp/bdd/*
@@ -63,7 +63,9 @@ jobs:
             ls -la
             pwd
             
-            ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project FridayApplication --project FridayApplication_Test
+            ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project FridayApplication --project FridayApplication_Test --trace trace.txt
+            ls -la
+            cat trace.txt
             IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test
 
             echo ""
