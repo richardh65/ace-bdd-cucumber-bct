@@ -1,4 +1,10 @@
-# ace-bdd-cucumber
+# ace-bdd-cucumber-bct
+
+This is a copy of this repo:
+https://github.com/tdolby-at-uk-ibm-com/ace-bdd-cucumber
+
+We have added support to report test coverage into SonarQube and also to generate a SARIF report for GitHub.
+
 Examples using ACE with Cucumber Behaviour-Driven Development (BDD) building on the ACE v12
 test support enhancements. For background information on BDD, see the [Cucumber BDD intro](https://cucumber.io/docs/bdd/).
 
