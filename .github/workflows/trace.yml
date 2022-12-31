@@ -58,7 +58,15 @@ jobs:
             # copy in config here
             cp /tmp/work/other/code/config/server.conf.yaml /tmp/bdd/FridayApplication-work-dir/server.conf.yaml
             
-            cd /tmp/work/other/code
+            cd /
+            cp -R /tmp/work/other/code/FridayApplication_Test FridayApplication_Test
+            cp -R /tmp/work/other/code/FridayApplication FridayApplication
+            cp -R /tmp/work/other/code/WholeFlowApplication WholeFlowApplication
+            cp -R /tmp/work/other/code/WholeFlowApplication_Test WholeFlowApplication_Test
+            cp -R /tmp/work/other/code/WholeFlowWithMockedNodeApplication WholeFlowWithMockedNodeApplication
+            cp -R /tmp/work/other/code/WholeFlowWithMockedNodeApplication_TDD WholeFlowWithMockedNodeApplication_TDD
+            
+
             ls -la
             pwd
             
