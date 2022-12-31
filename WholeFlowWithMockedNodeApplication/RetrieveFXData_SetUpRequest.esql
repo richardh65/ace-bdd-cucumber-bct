@@ -1,0 +1,16 @@
+
+-- Override this at deploy time with a real API key
+DECLARE API_KEY_UDP EXTERNAL CHARACTER '';
+
+CREATE COMPUTE MODULE RetrieveFXData_SetUpRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.QueryString.function = 'CURRENCY_EXCHANGE_RATE';
+		SET OutputLocalEnvironment.Destination.HTTP.QueryString.from_currency = InputLocalEnvironment.HTTP.Input.QueryString.from;
+		SET OutputLocalEnvironment.Destination.HTTP.QueryString.to_currency = InputLocalEnvironment.HTTP.Input.QueryString.to;
+		SET OutputLocalEnvironment.Destination.HTTP.QueryString.apikey = API_KEY_UDP;
+		RETURN TRUE;
+	END;
+END MODULE;

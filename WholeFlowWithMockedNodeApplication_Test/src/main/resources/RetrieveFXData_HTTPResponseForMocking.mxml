@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><MessageAssembly iib:parser="GENERICROOT" xmlns:iib="http://com.ibm.iib/lt/1.0">
+   <version xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="INTEGER">1</version>
+   <checkpoint>
+      <messageId xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">00008E78-62B9E48D-00000001</messageId>
+      <propagationCount xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="INTEGER">2</propagationCount>
+      <nodeCallDepth xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="INTEGER">3</nodeCallDepth>
+      <timestamp xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="TIMESTAMP">2022-06-27 17:10:37.167999</timestamp>
+      <source>
+         <name xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">HTTP Request</name>
+         <identifier xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">RetrieveFXData#FCMComposite_1_4</identifier>
+         <type xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">ComIbmWSRequestNode</type>
+         <terminal xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">out</terminal>
+         <nodePath>
+            <application xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">WholeFlowWithMockedNodeApplication</application>
+            <messageFlow xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">RetrieveFXData</messageFlow>
+            <node xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">HTTP Request</node>
+         </nodePath>
+         <inputNode xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="BOOLEAN">FALSE</inputNode>
+      </source>
+      <target>
+         <name xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">ChangeData</name>
+         <identifier xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">RetrieveFXData#FCMComposite_1_5</identifier>
+         <type xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">ComIbmComputeNode</type>
+         <terminal xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">in</terminal>
+         <nodePath>
+            <application xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">WholeFlowWithMockedNodeApplication</application>
+            <messageFlow xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">RetrieveFXData</messageFlow>
+            <node xmlns:iib="http://com.ibm.iib/lt/1.0" iib:valueType="CHARACTER">ChangeData</node>
+         </nodePath>
+      </target>
+   </checkpoint>
+   <environment/>
+   <localEnvironment xmlns:iib="http://com.ibm.iib/lt/1.0" iib:parser="MQROOT">
+      <Destination>
+         <HTTP>
+            <QueryString>
+               <function iib:valueType="CHARACTER">CURRENCY_EXCHANGE_RATE</function>
+               <from_currency iib:valueType="CHARACTER">GBP</from_currency>
+               <to_currency iib:valueType="CHARACTER">USD</to_currency>
+               <apikey iib:valueType="CHARACTER">O027FK0JTZAPIDXT</apikey>
+            </QueryString>
+         </HTTP>
+      </Destination>
+      <WrittenDestination>
+         <HTTP>
+            <RequestURL iib:valueType="CHARACTER">https://www.alphavantage.co/query</RequestURL>
+         </HTTP>
+      </WrittenDestination>
+      <Request>
+         <Response>
+            <Transport>
+               <HTTP>
+                  <ServerCertInfo>
+                     <ServerDN iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+                  </ServerCertInfo>
+               </HTTP>
+            </Transport>
+         </Response>
+      </Request>
+   </localEnvironment>
+   <exceptionList/>
+   <message xmlns:iib="http://com.ibm.iib/lt/1.0" iib:parser="WSRoot">
+      <Properties iib:parser="WSPROPERTYPARSER">
+         <MessageSet iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <MessageType iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <MessageFormat iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <Encoding iib:valueType="INTEGER">546</Encoding>
+         <CodedCharSetId iib:valueType="INTEGER">1208</CodedCharSetId>
+         <Transactional iib:valueType="BOOLEAN">FALSE</Transactional>
+         <Persistence iib:valueType="BOOLEAN">FALSE</Persistence>
+         <CreationTime iib:valueType="GMTTIMESTAMP">2022-06-27 17:10:37.491001</CreationTime>
+         <ExpirationTime iib:valueType="INTEGER">-1</ExpirationTime>
+         <Priority iib:valueType="INTEGER">0</Priority>
+         <ReplyIdentifier iib:valueType="BLOB">000000000000000000000000000000000000000000000000</ReplyIdentifier>
+         <ReplyProtocol iib:valueType="CHARACTER">SOAP-HTTP</ReplyProtocol>
+         <Topic iib:elementType="0x03000000"/>
+         <ContentType iib:valueType="CHARACTER">application/json</ContentType>
+         <IdentitySourceType iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentitySourceToken iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentitySourcePassword iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentitySourceIssuedBy iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentityMappedType iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentityMappedToken iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentityMappedPassword iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+         <IdentityMappedIssuedBy iib:elementType="0x03000000" iib:valueType="CHARACTER"/>
+      </Properties>
+      <HTTPResponseHeader iib:parser="WSRSPHDR">
+         <X-Original-HTTP-Status-Line iib:valueType="CHARACTER">HTTP/1.1 200 OK</X-Original-HTTP-Status-Line>
+         <X-Original-HTTP-Status-Code iib:valueType="INTEGER">200</X-Original-HTTP-Status-Code>
+         <Date iib:valueType="CHARACTER">Mon, 27 Jun 2022 17:10:37 GMT</Date>
+         <Content-Type iib:valueType="CHARACTER">application/json</Content-Type>
+         <Transfer-Encoding iib:valueType="CHARACTER">chunked</Transfer-Encoding>
+         <Connection iib:valueType="CHARACTER">keep-alive</Connection>
+         <Vary iib:valueType="CHARACTER">Cookie</Vary>
+         <Allow iib:valueType="CHARACTER">GET, HEAD, OPTIONS</Allow>
+         <X-Frame-Options iib:valueType="CHARACTER">SAMEORIGIN</X-Frame-Options>
+         <Via iib:valueType="CHARACTER">1.1 vegur</Via>
+         <CF-Cache-Status iib:valueType="CHARACTER">DYNAMIC</CF-Cache-Status>
+         <Expect-CT iib:valueType="CHARACTER">max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"</Expect-CT>
+         <Server iib:valueType="CHARACTER">cloudflare</Server>
+         <CF-RAY iib:valueType="CHARACTER">721fcc143fe9c643-MSP</CF-RAY>
+      </HTTPResponseHeader>
+      <JSON iib:parser="json">
+         <Data>
+            <iib:element iib:name="Realtime Currency Exchange Rate">
+               <iib:element iib:name="1. From_Currency Code" iib:valueType="CHARACTER">GBP</iib:element>
+               <iib:element iib:name="2. From_Currency Name" iib:valueType="CHARACTER">British Pound Sterling</iib:element>
+               <iib:element iib:name="3. To_Currency Code" iib:valueType="CHARACTER">USD</iib:element>
+               <iib:element iib:name="4. To_Currency Name" iib:valueType="CHARACTER">United States Dollar</iib:element>
+               <iib:element iib:name="5. Exchange Rate" iib:valueType="CHARACTER">1.22794310</iib:element>
+               <iib:element iib:name="6. Last Refreshed" iib:valueType="CHARACTER">2022-06-27 17:10:22</iib:element>
+               <iib:element iib:name="7. Time Zone" iib:valueType="CHARACTER">UTC</iib:element>
+               <iib:element iib:name="8. Bid Price" iib:valueType="CHARACTER">1.22794310</iib:element>
+               <iib:element iib:name="9. Ask Price" iib:valueType="CHARACTER">1.22794310</iib:element>
+            </iib:element>
+         </Data>
+      </JSON>
+   </message>
+</MessageAssembly>

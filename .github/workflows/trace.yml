@@ -1,0 +1,97 @@
+name: Workflow to trigger ACE unit tests
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "mainx" ]
+  pull_request:
+    branches: [ "mainx" ]
+  
+
+# richardh65/bct-tools:latest
+
+jobs:
+  build:
+    name: Run Unit tests under ACE
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code repo
+        uses: actions/checkout@v2
+        with:
+          path: code
+
+      - name: checkout wiki
+        uses: actions/checkout@v3
+        with:
+          repository: ${{github.repository}}.wiki
+          path: wiki        
+
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: richardh65/bct-tools:v9
+          options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other/code -w /tmp/work/other/code
+          run: |          
+            pwd
+            cd code
+            ls -la /opt/ibm/ace-12/server/bin/mqsipackagebar
+            . /opt/ibm/ace-12/server/bin/mqsiprofile            
+            /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml            
+            ls -la /tmp/work/other/code/coveragetemp
+            /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-tracing.properties
+            ls -la 
+            cat BCT_report.sarif
+            
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: code/BCT_report.sarif
+
+      - name: Generate diagrams
+        uses: addnab/docker-run-action@v3
+        with:
+          image: richardh65/bct-tools:v9
+          options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other/code -w /tmp/work/other/code
+          run: |
+            pwd
+            ls -la
+            cd code            
+            ls -la *.prop*
+            cat sonar-project-diagram.properties grep sonar.mb.flow.diagram.output
+            cat sonar-project-diagram.properties grep sonar.projectName
+            /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-diagram.properties
+            ls -la
+            echo ======= Github_diagrams ======
+            ls -la Github_diagrams
+            echo ======= Github_diagrams/other-diagram-1 ======
+            ls -la Github_diagrams/other-diagram-1            
+            echo ======= Github_diagrams/other-diagram-1/diagrams ======
+            
+            
+
+      - name: wiki changes
+        run: |
+          cd wiki
+          pwd
+          ls -la
+          echo ===== making dir          
+          echo changing to diagrams          
+          ls -la
+          ls -la ../code/Github_diagrams/other-diagram-1
+          echo === copying files====
+          cp -R ../code/Github_diagrams/other-diagram-1/* .
+          echo === after copy ====
+          ls -la
+          git config user.name testuser
+          git config user.email tetsuser@bct.com
+          git add . | true
+          git add -u
+          git commit -m "Updating diagrams"
+          git push
+
+
+
+
+
+           

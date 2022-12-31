@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE DoSeveralThings_SetJSON
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		SET OutputRoot.JSON.Data.reply = 'computeNode';
+		RETURN TRUE;
+	END;
+END MODULE;
