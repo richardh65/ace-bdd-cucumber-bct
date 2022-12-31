@@ -28,13 +28,57 @@ jobs:
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
-          image: richardh65/bct-tools:v9
+          image: richardh65/bct-tools:v10
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other/code -w /tmp/work/other/code
           run: |          
-            pwd
-            cd code
-            ls -la /opt/ibm/ace-12/server/bin/mqsipackagebar
-            . /opt/ibm/ace-12/server/bin/mqsiprofile            
+            # debug
+            ls -la /
+            ls -la /code
+            # make
+            . /opt/ibm/ace-12/server/bin/mqsiprofile
+            # build-and-run-tests.sh
+            # Print commands to the screen
+            set -x
+
+            # Exit on any error
+            set -e
+
+            mkdir -p /tmp/bdd
+            rm -rf /tmp/bdd/*
+
+            echo ""
+            echo "================ Building and running FridayApplication tests"
+            echo ""
+            mqsicreateworkdir /tmp/bdd/FridayApplication-work-dir
+            # need to locate config file
+            ls -la /tmp/bdd/FridayApplication-work-dir
+            # copy in config here
+            cp /code/config/server.config.yaml /tmp/bdd/FridayApplication-work-dir/server.config.yaml
+            ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project /tmp/work/other/code/FridayApplication --project /tmp/work/other/code/FridayApplication_Test
+            IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project /tmp/work/other/code/FridayApplication_Test
+
+            echo ""
+            echo "================ Building and running WholeFlowApplication tests"
+            echo ""
+            mqsicreateworkdir /tmp/bdd/WholeFlowApplication-work-dir
+            ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/WholeFlowApplication-work-dir --project /tmp/work/other/code/WholeFlowApplication --project /tmp/work/other/code/WholeFlowApplication_Test
+            IntegrationServer -w /tmp/bdd/WholeFlowApplication-work-dir --no-nodejs --start-msgflows no --test-project /tmp/work/other/code/WholeFlowApplication_Test
+
+            echo ""
+            echo "================ Building and running WholeFlowWithMockedNodeApplication tests"
+            echo ""
+            # Could run a separate TDD test work directory if there was a danger of interference
+            mqsicreateworkdir /tmp/bdd/WholeFlowWithMockedNodeApplication-work-dir
+            ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/WholeFlowWithMockedNodeApplication-work-dir --project /tmp/work/other/code/WholeFlowWithMockedNodeApplication --project /tmp/work/other/code/WholeFlowWithMockedNodeApplication_Test --project /tmp/work/other/code/WholeFlowWithMockedNodeApplication_TDD
+            IntegrationServer -w /tmp/bdd/WholeFlowWithMockedNodeApplication-work-dir --no-nodejs --start-msgflows no --test-project /tmp/work/other/code/WholeFlowWithMockedNodeApplication_TDD
+            IntegrationServer -w /tmp/bdd/WholeFlowWithMockedNodeApplication-work-dir --no-nodejs --start-msgflows no --test-project /tmp/work/other/code/WholeFlowWithMockedNodeApplication_Test
+
+            # Clean up JARs left by ibmint - git will notice if we leave them around; while
+            # we could ignore JAR files with .gitignore, that would make it harder to upgrade
+            # cucumber JARs later. Maven solves this (see maven branch) . . . 
+            rm *_*/*_*.jar
+
+            # run the trace collection
             /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml            
             ls -la /tmp/work/other/code/coveragetemp
             /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-tracing.properties
