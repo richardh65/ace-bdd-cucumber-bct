@@ -56,7 +56,7 @@ jobs:
             # need to locate config file
             ls -la /tmp/bdd/FridayApplication-work-dir
             # copy in config here
-            cp /tmp/work/other/code/config/server.config.yaml /tmp/bdd/FridayApplication-work-dir/server.config.yaml
+            cp /tmp/work/other/code/config/server.conf.yaml /tmp/bdd/FridayApplication-work-dir/server.conf.yaml
             ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project /tmp/work/other/code/FridayApplication --project /tmp/work/other/code/FridayApplication_Test
             IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project /tmp/work/other/code/FridayApplication_Test
 
