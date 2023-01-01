@@ -46,6 +46,7 @@ jobs:
             ls -la /tmp/work/other/code/config
             echo "============================ setup profile ========================================"
             # make
+            cat  /opt/ibm/ace-12/server/bin/mqsiprofile
             . /opt/ibm/ace-12/server/bin/mqsiprofile
             # build-and-run-tests.sh
             # Print commands to the screen
