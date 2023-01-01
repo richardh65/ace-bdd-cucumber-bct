@@ -34,7 +34,7 @@ jobs:
           run: |
             echo "======================== running from script ========================="
             ls -la /tmp/work/other/code
-            ./tmp/work/other/code/run-script.sh
+            /tmp/work/other/code/run-script.sh
             
             
 
