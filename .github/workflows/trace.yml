@@ -44,15 +44,17 @@ jobs:
             chmod 777 /tmp/work/other/code/trace
             chmod 777 /tmp/work/other/code/trace/*
 
-
-      - name: fix permissions
+      - name: Get Actions user id
+        id: get_uid
         run: |
-          echo "${{ github.workspace }}"
-          ls -la ${{ github.workspace }}
-          ls -la ${{ github.workspace }}/code/trace
-          chmod 777 ${{ github.workspace }}/code/trace
-          chmod 777 ${{ github.workspace }}/code/trace/*
+          actions_user_id=`id -u $USER`
+          echo $actions_user_id
+          echo "uid=$actions_user_id" >> $GITHUB_OUTPUT
 
+      - name: Correct Ownership in GITHUB_WORKSPACE directory
+        uses: peter-murray/reset-workspace-ownership-action@v1
+        with:
+          user_id: ${{ steps.get_uid.outputs.uid }}
 
                         
       - name: Process coverage
