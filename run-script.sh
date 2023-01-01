@@ -32,6 +32,8 @@ ls -la
 # cat trace.txt
 IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test
 
+# after tests what's produced
+ls -la 
 
 
 # echo ""
