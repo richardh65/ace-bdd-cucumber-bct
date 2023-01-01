@@ -8,7 +8,7 @@
 set -x
 
 # Exit on any error
-# set -e
+set -e
 
 mkdir -p /tmp/bdd
 rm -rf /tmp/bdd/*

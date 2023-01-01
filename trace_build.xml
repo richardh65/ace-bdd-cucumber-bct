@@ -3,7 +3,7 @@
 
 			
 	<path id="project.classpath">		
-		<pathelement location="/tmp/work/bct/lib/MB-precise-sonarplugin-3.121.jar" />
+		<pathelement location="/tmp/work/bct/lib/MB-precise-sonarplugin-3.122.jar" />
 				
 		<pathelement location="/tmp/work/bct/lib/commons-io-2.7.jar"/>
 		<pathelement location="/tmp/work/bct/lib/commons-lang-2.6.jar"/>
@@ -94,7 +94,7 @@
 	<java classname="au.com.bettercodingtools.sonar.messagebrokersonar.standalone.ConsumeTraceStandAlone" failonerror="true" fork="false">
 		<arg value="coveragetemp" />
 		<arg value="N" />
-		<arg value="/tmp/work/other/code/test_work_dir/config/common/log/integration_server.test_work_dir.userTrace.0.txt" />		
+		<arg value="/tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt" />
 		<arg value="FridayApplication" />
 		
 		<classpath>			
