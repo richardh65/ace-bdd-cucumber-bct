@@ -32,17 +32,17 @@ jobs:
           image: tdolby/experimental:ace-devcontainer-xvnc-12.0.7.0
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |
-            echo "======================== running from script v0.01 ========================="
-            ls -la /tmp/work/other/code
+            # the mqsiprofile command needs to be run with the bash enabled, which conflicts with what a github runner in a container provides
+            echo "======================== running from script v0.02 ========================="            
             /tmp/work/other/code/run-script.sh
 
             echo "======================== checking logs ========================="
             ls -la /tmp/bdd/FridayApplication-work-dir/config/common/log
+            # copy logs to a working area to be picked up by the next step
             mkdir /tmp/work/other/code/trace
             cp /tmp/bdd/FridayApplication-work-dir/config/common/log/integration_server.FridayApplication-work-dir.userTrace.0.txt /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
 
-            
-            
+                        
       - name: Process coverage
         uses: addnab/docker-run-action@v3
         with:
