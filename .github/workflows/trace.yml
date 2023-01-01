@@ -78,6 +78,12 @@ jobs:
             ls -la /tmp/work/other/code/coveragetemp
             cat /tmp/work/other/code/coveragetemp
             
+            echo "======================== working directory ========================="
+            pwd
+            ls -la FridayApplication
+            ls -la FridayApplication/.git
+            echo "======================== running analysis ========================="
+
             /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-tracing.properties
             ls -la
             ls -la /tmp/work/other/code/Github_diagrams
