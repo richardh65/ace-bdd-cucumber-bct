@@ -31,7 +31,8 @@ jobs:
           # image: richardh65/bct-tools:v10
           image: tdolby/experimental:ace-devcontainer-xvnc-12.0.7.0
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
-          run: |          
+          run: |
+            #!/bin/bash
             # debug            
             echo "============================ root /  ========================================"
             ls -la /
@@ -48,8 +49,7 @@ jobs:
             # make
             # cat  /opt/ibm/ace-12/server/bin/mqsiprofile
             . /opt/ibm/ace-12/server/bin/mqsiprofile
-            # build-and-run-tests.sh
-            #!/bin/bash
+            # build-and-run-tests.sh            
             # Print commands to the screen
             set -x
 
