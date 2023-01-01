@@ -33,6 +33,7 @@ jobs:
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |
             echo "======================== running from script ========================="
+            ls -la /tmp/work/other/code
             ./tmp/work/other/code/run-script.sh
             
             
