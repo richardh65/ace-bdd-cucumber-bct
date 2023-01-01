@@ -49,9 +49,9 @@ jobs:
         run: |
           echo "${{ github.workspace }}"
           ls -la ${{ github.workspace }}
-          ls -la ${{ github.workspace }}/trace
-          chmod 777 ${{ github.workspace }}/trace
-          chmod 777 ${{ github.workspace }}/trace/*
+          ls -la ${{ github.workspace }}/code/trace
+          chmod 777 ${{ github.workspace }}/code/trace
+          chmod 777 ${{ github.workspace }}/code/trace/*
 
 
                         
