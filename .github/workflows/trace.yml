@@ -25,7 +25,7 @@ jobs:
           repository: ${{github.repository}}.wiki
           path: wiki        
 
-      - name: Run the build process with Docker
+      - name: Run the build tests with Docker
         uses: addnab/docker-run-action@v3
         with:
           # image: richardh65/bct-tools:v10
@@ -35,8 +35,30 @@ jobs:
             echo "======================== running from script v0.01 ========================="
             ls -la /tmp/work/other/code
             /tmp/work/other/code/run-script.sh
+
+            echo "======================== checking logs ========================="
+            ls -la /tmp/bdd/FridayApplication-work-dir
+            ls -la /tmp/bdd/FridayApplication-work-dir/config
+            ls -la /tmp/bdd/FridayApplication-work-dir/config/common
+            ls -la /tmp/bdd/FridayApplication-work-dir/config/common/log            
             
             
+      - name: Process coverage
+        uses: addnab/docker-run-action@v3
+        with:
+          image: richardh65/bct-tools:v10          
+          options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
+          run: |            
+            echo "======================== extracting coverage ========================="
+            ls -la /tmp/work/other/code
+
+            # run the trace collection            
+            /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
+            ls -la /tmp/work/other/code/coveragetemp
+            /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-tracing.properties
+            ls -la 
+            cat BCT_report.sarif
+
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
