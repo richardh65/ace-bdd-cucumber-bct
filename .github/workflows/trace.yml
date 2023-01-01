@@ -50,20 +50,25 @@ jobs:
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |            
             echo "======================== extracting coverage ========================="
-            ls -la /tmp/work/other/code
-            ls -la /tmp/work/other/code/Github_diagrams
 
-            ls -la /tmp/work/bct/lib
+            # ls -la /tmp/work/bct/lib
             ls -la /tmp/work/other/code/trace
 
-            # run the trace collection            
-            /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
+            head -10 /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
+
+            # run the trace collection
             ls -la
+            pwd
+            /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
+            
             ls -la /tmp/work/other/code/coveragetemp
             cat /tmp/work/other/code/coveragetemp
+            
             /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-tracing.properties
-            ls -la 
-            cat BCT_report.sarif
+            ls -la
+            ls -la /tmp/work/other/code/Github_diagrams
+            pwd 
+            head -10 BCT_report.sarif
 
 
       - name: Upload SARIF file
