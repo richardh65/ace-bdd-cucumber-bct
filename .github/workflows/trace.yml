@@ -33,6 +33,10 @@ jobs:
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |          
             # debug
+            echo "============================ root /  ========================================"
+            ls -la /
+            ls -la /opt
+            ls -la /opt/ibm
             echo "============================ /tmp/work/other/code ========================================"
             ls -la /tmp/work/other/code
             echo "============================ /tmp/work/other/code/config ========================================"
