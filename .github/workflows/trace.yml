@@ -44,6 +44,16 @@ jobs:
             chmod 777 /tmp/work/other/code/trace
             chmod 777 /tmp/work/other/code/trace/*
 
+
+      - name: fix permissions
+        run: |
+          echo "${{ github.workspace }}"
+          ls -la ${{ github.workspace }}
+          ls -la ${{ github.workspace }}/trace
+          chmod 777 ${{ github.workspace }}/trace
+          chmod 777 ${{ github.workspace }}/trace/*
+
+
                         
       - name: Process coverage
         uses: addnab/docker-run-action@v3
