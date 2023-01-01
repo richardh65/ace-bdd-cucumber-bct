@@ -32,7 +32,7 @@ jobs:
           image: tdolby/experimental:ace-devcontainer-xvnc-12.0.7.0
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |          
-            # debug
+            # debug            
             echo "============================ root /  ========================================"
             ls -la /
             ls -la /opt
@@ -46,9 +46,10 @@ jobs:
             ls -la /tmp/work/other/code/config
             echo "============================ setup profile ========================================"
             # make
-            cat  /opt/ibm/ace-12/server/bin/mqsiprofile
+            # cat  /opt/ibm/ace-12/server/bin/mqsiprofile
             . /opt/ibm/ace-12/server/bin/mqsiprofile
             # build-and-run-tests.sh
+            #!/bin/bash
             # Print commands to the screen
             set -x
 
