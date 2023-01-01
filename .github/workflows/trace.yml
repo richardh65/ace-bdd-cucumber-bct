@@ -38,6 +38,8 @@ jobs:
             ls -la /opt
             ls -la /opt/ibm
             ls -la /opt/ibm/ace-12
+            ls -la /opt/ibm/ace-12/server
+            ls -la /opt/ibm/ace-12/server/bin
             echo "============================ /tmp/work/other/code ========================================"
             ls -la /tmp/work/other/code
             echo "============================ /tmp/work/other/code/config ========================================"
