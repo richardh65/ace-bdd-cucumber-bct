@@ -68,7 +68,7 @@ jobs:
             # ls -la /tmp/work/bct/lib
             ls -la /tmp/work/other/code/trace
 
-            head -10 /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
+            head -15 /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
 
             # run the trace collection
             ls -la
@@ -82,7 +82,7 @@ jobs:
             ls -la
             ls -la /tmp/work/other/code/Github_diagrams
             pwd 
-            head -10 BCT_report.sarif
+            head -30 BCT_report.sarif
 
 
       - name: Upload SARIF file
@@ -122,9 +122,9 @@ jobs:
           echo changing to diagrams          
           ls -la
           ls -la ../code/Github_diagrams
-          ls -la ../code/Github_diagrams/other-diagram-1
+          ls -la ../code/Github_diagrams/FridayApplication-1
           echo === copying files====
-          cp -R ../code/Github_diagrams/other-diagram-1/* .
+          cp -R ../code/Github_diagrams/FridayApplication-1/* .
           echo === after copy ====
           ls -la
           git config user.name testuser
