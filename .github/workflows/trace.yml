@@ -65,6 +65,9 @@ jobs:
           run: |            
             echo "======================== extracting coverage ========================="
 
+            # cleanup
+            rm -rf /tmp/work/other/code/.sonar_lock
+
             # Exit on any error
             set -e
 
