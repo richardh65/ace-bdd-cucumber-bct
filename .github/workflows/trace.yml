@@ -65,6 +65,9 @@ jobs:
           run: |            
             echo "======================== extracting coverage ========================="
 
+            # Exit on any error
+            set -e
+
             # ls -la /tmp/work/bct/lib
             ls -la /tmp/work/other/code/trace
 

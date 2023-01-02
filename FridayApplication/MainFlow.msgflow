@@ -21,7 +21,7 @@
     <propertyOrganizer/>
     <stickyBoard>
       <stickyNote location="79,45">
-        <body xmi:type="utility:ConstantString" string="Implement the &quot;Is it Friday?&quot; code using a Compute node.&#xA;&#xA;For system-level testing, curl could be used to send data&#xA;into the flow over HTTP."/>
+        <body xmi:type="utility:ConstantString" string="Cleaned up comments might be causing bad UTF"/>
       </stickyNote>
     </stickyBoard>
   </eClassifiers>
