@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<project name="project" default="consumeTraceFile">
+
+			
+	<path id="project.classpath">		
+		<pathelement location="/tmp/work/bct/lib/MB-precise-sonarplugin-3.123.jar" />
+				
+		<pathelement location="/tmp/work/bct/lib/commons-io-2.7.jar"/>
+		<pathelement location="/tmp/work/bct/lib/commons-lang-2.6.jar"/>
+		
+		<pathelement location="/tmp/work/bct/lib/slf4j-api-1.7.5.jar"/>		
+		<pathelement location="/tmp/work/bct/lib/slf4j-jdk14-1.7.7.jar"/>	
+		
+		<pathelement location="/tmp/work/bct/lib/xstream-1.4.7.jar"/>
+		<pathelement location="/tmp/work/bct/lib/plexus-utils-3.0.21.jar"/>
+		<pathelement location="/tmp/work/bct/lib/xmlpull-1.1.3.1.jar"/>
+		<pathelement location="/tmp/work/bct/lib/xpp3-1.1.3.3.jar"/>				
+		<pathelement location="/tmp/work/bct/lib/javassist-3.12.1.GA.jar"/>		
+		<pathelement location="/tmp/work/bct/lib/com.ibm.mqjms.jar"/>		
+						
+		<pathelement location="/tmp/work/bct/lib/javaparser-1.0.11.jar"/>		
+		
+		<!-- jacoco -->
+		<pathelement location="/tmp/work/bct/lib/asm-tree-7.2.jar"/>
+		<pathelement location="/tmp/work/bct/lib/asm-commons-7.2.jar"/>
+		<pathelement location="/tmp/work/bct/lib/asm-7.2.jar"/>
+		<pathelement location="/tmp/work/bct/lib/org.jacoco.report-0.8.5.jar"/>
+		<pathelement location="/tmp/work/bct/lib/org.jacoco.core-0.8.5.jar"/>
+		<pathelement location="/tmp/work/bct/lib/org.jacoco.agent-0.8.5.jar"/>
+		<pathelement location="/tmp/work/bct/lib/org.jacoco.cli-0.8.5.jar"/>
+		<pathelement location="/tmp/work/bct/lib/args4j-2.0.28.jar"/>
+    </path>
+	
+    <!-- only doing test coverage-->
+	<typedef name="consumeTrace" 		 
+		 classname="au.com.bettercodingtools.sonar.messagebrokersonar.anttasks.ConsumeTraceTask" >
+		<classpath refid="project.classpath" />
+	</typedef>
+	
+	
+	<property environment="env" />
+		
+<target name="init" description="">			
+
+</target>			
+
+
+
+<!--
+	
+	<echo message="==============================================" />
+	<echo message="delete trace config" />
+	<echo message="==============================================" />
+	<delete file="/tmp/work/other/code/test_work_dir/server.conf.yaml" quiet="false" failonerror="true" verbose="true" />
+	
+	<echo message="==============================================" />
+	<echo message="copy trace config" />
+	<echo message="==============================================" />
+	<copy file="/tmp/work/other/code/config/server.conf.yaml" 
+			todir="/tmp/work/other/code/test_work_dir" force="true" failonerror="true" />
+	<echo message="==============================================" />	
+	
+	
+
+	<echo message="==============================================" />
+	<echo message="copy policy" />
+	<echo message="==============================================" />
+	<copy file="/tmp/work/other/code/bars/SimplePolicyTestable.bar" 
+			todir="/tmp/work/other/code/test_work_dir/run" />
+	<echo message="==============================================" />	
+
+	<echo message="==============================================" />
+	<echo message="copy project" />
+	<echo message="==============================================" />			
+	<copy file="/tmp/work/other/code/BarFiles/UnitTests.bar" 
+			todir="/tmp/work/other/code/test_work_dir/run" />
+			
+			
+-->	
+
+<target name="consumeTraceFile" depends="init">
+	
+
+	<echo message="===============================================" />
+	<echo message="waiting for trace files to be written" />
+	<echo message="===============================================" />
+	<sleep seconds="5"/>
+	
+	<echo message="===============================================" />
+	<echo message="consume Trace bar file " />
+	<echo message="===============================================" />
+        	
+	
+	<java classname="au.com.bettercodingtools.sonar.messagebrokersonar.standalone.ConsumeTraceStandAlone" failonerror="true" fork="false">
+		<arg value="coveragetemp" />
+		<arg value="N" />
+		<arg value="/tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt" />
+		<arg value="FridayApplication" />
+		
+		<classpath>			
+			<path refid="project.classpath"/>
+		</classpath>
+   </java>
+   
+   <sleep seconds="1"/>
+		   
+        
+ </target>
+ 
+  
+ 
+</project>
