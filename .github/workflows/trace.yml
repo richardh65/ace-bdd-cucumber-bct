@@ -79,7 +79,7 @@ jobs:
             /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
             
             ls -la /tmp/work/other/code/coveragetemp
-            cat /tmp/work/other/code/coveragetemp
+            head -30 /tmp/work/other/code/coveragetemp/coverage.xml
             
             echo "======================== working directory ========================="
             pwd
