@@ -68,7 +68,7 @@ jobs:
 
             ls -la
             echo "======================== remove local git ========================="
-            rm -rf .git
+            # rm -rf .git
             echo "======================== remove local git done ========================="
             
 
