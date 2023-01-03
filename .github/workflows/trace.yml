@@ -64,7 +64,7 @@ jobs:
           image: richardh65/bct-tools:v11
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |            
-            echo "======================== extracting coverage v0.1 ========================="
+            echo "======================== extracting coverage v0.2 ========================="
 
             ls -la
             echo "======================== remove local git ========================="
