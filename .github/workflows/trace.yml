@@ -67,7 +67,8 @@ jobs:
             echo "======================== extracting coverage ========================="
 
             ls -la
-            git repack -a
+            rm -rf .git
+            echo "======================== extracting coverage done ========================="
 
             # cleanup
             # rm -rf /tmp/work/other/code/.sonar_lock
