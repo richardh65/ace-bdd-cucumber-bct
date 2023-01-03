@@ -64,11 +64,13 @@ jobs:
           image: richardh65/bct-tools:v11
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |            
-            echo "======================== extracting coverage ========================="
+            echo "======================== extracting coverage v0.1 ========================="
 
             ls -la
+            echo "======================== remove local git ========================="
             rm -rf .git
-            echo "======================== extracting coverage done ========================="
+            echo "======================== remove local git done ========================="
+            
 
             # cleanup
             # rm -rf /tmp/work/other/code/.sonar_lock
