@@ -66,8 +66,11 @@ jobs:
           run: |            
             echo "======================== extracting coverage ========================="
 
+            ls -la
+            git repack -a
+
             # cleanup
-            rm -rf /tmp/work/other/code/.sonar_lock
+            # rm -rf /tmp/work/other/code/.sonar_lock
 
             # Exit on any error
             set -e
