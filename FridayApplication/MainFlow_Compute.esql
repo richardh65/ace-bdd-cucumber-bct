@@ -25,6 +25,8 @@ CREATE COMPUTE MODULE MainFlow_Compute
 		DECLARE J INTEGER;
 		SET J = CARDINALITY(InputRoot.*[]);
 
+		DECLARE _oauthToken CHARACTER = '123456';
+
 		SET OutputRoot.HTTPRequestHeader."Authorization" = 'Bearer ' || _oauthToken;
 
 		WHILE I < J DO
