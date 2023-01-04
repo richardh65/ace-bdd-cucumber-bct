@@ -3,6 +3,8 @@
 CREATE COMPUTE MODULE MainFlow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		DECLARE Unused1 INTEGER;
+
 		SET OutputRoot.Properties = InputRoot.Properties;
 		
 		IF InputRoot.JSON.Data.today = 'Friday' THEN
@@ -12,5 +14,20 @@ CREATE COMPUTE MODULE MainFlow_Compute
 		END IF;
 		
 		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+
+		SET OutputRoot.HTTPRequestHeader."Authorization" = 'Bearer ' || _oauthToken;
+
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+		
+		SET OutputRoot.HTTPRequestHeader."Content-Type" = 'application/json';
 	END;
 END MODULE;

@@ -3,7 +3,7 @@
 # debug            
 . /opt/ibm/ace-12/server/bin/mqsiprofile
 
-# build-and-run-tests.sh            
+# copied in from build-and-run-tests.sh            
 # Print commands to the screen
 set -x
 
@@ -17,23 +17,18 @@ echo ""
 echo "================ Building and running FridayApplication tests"
 echo ""
 mqsicreateworkdir /tmp/bdd/FridayApplication-work-dir
-# need to locate config file
+# need to locate config file to replace
 ls -la /tmp/bdd/FridayApplication-work-dir
-# copy in config here
+# copy in config here with debug enabled
 cp /tmp/work/other/code/config/server.conf.yaml /tmp/bdd/FridayApplication-work-dir/server.conf.yaml
             
 cd /tmp/work/other/code
 
-ls -la
-pwd
             
 ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project FridayApplication --project FridayApplication_Test --trace trace.txt
-ls -la
-# cat trace.txt
+
 IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test
 
-# after tests what's produced
-ls -la 
 
 
 # echo ""
@@ -56,5 +51,5 @@ ls -la
 # Clean up JARs left by ibmint - git will notice if we leave them around; while
 # we could ignore JAR files with .gitignore, that would make it harder to upgrade
 # cucumber JARs later. Maven solves this (see maven branch) . . . 
-# rm *_*/*_*.jar
+rm *_*/*_*.jar
 

@@ -7,8 +7,6 @@ on:
     branches: [ "mainx" ]
   
 
-# richardh65/bct-tools:latest
-
 jobs:
   build:
     name: Run Unit tests under ACE
@@ -28,22 +26,20 @@ jobs:
 
       - name: Run the build tests with Docker
         uses: addnab/docker-run-action@v3
-        with:
-          # image: richardh65/bct-tools:v10
+        with:          
           image: tdolby/experimental:ace-devcontainer-xvnc-12.0.7.0
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |
             # the mqsiprofile command needs to be run with the bash enabled, which conflicts with what a github runner in a container provides
-            echo "======================== running from script v0.02 ========================="            
+            echo "======================== running from script v1.0 ========================="            
             /tmp/work/other/code/run-script.sh
 
-            echo "======================== checking logs ========================="
-            ls -la /tmp/bdd/FridayApplication-work-dir/config/common/log
             # copy logs to a working area to be picked up by the next step
             mkdir /tmp/work/other/code/trace
             cp /tmp/bdd/FridayApplication-work-dir/config/common/log/integration_server.FridayApplication-work-dir.userTrace.0.txt /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
             
             
+      # from 3rd party action need to reset ownership of artefacts across docker containers running      
       # https://github.com/marketplace/actions/reset-workspace-ownership-action
       - name: Get Actions user id
         id: get_uid
@@ -58,48 +54,41 @@ jobs:
           user_id: ${{ steps.get_uid.outputs.uid }}
 
                         
-      - name: Process coverage
+      - name: Process coverage and generate diagrams
         uses: addnab/docker-run-action@v3
         with:
           image: richardh65/bct-tools:v11
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |            
-            echo "======================== extracting coverage v0.2 ========================="
+            echo "======================== extracting coverage v1.0 ========================="
 
             ls -la
             echo "======================== remove local git ========================="
             # rm -rf .git
             echo "======================== remove local git done ========================="
-            
-
-            # cleanup
-            # rm -rf /tmp/work/other/code/.sonar_lock
 
             # Exit on any error
             set -e
 
-            # ls -la /tmp/work/bct/lib
             ls -la /tmp/work/other/code/trace
 
             head -15 /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
 
-            # run the trace collection
-            ls -la
-            pwd
+            # run the trace ant task - sets up the classpath to make things easier
             /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
             
+            # just make sure coverage looks ok
             ls -la /tmp/work/other/code/coveragetemp
             head -30 /tmp/work/other/code/coveragetemp/coverage.xml
             
-            echo "======================== working directory ========================="
-            pwd
-            ls -la FridayApplication
-            echo "======================== running analysis ========================="
+            echo "======================== running sonarqube analysis ========================="
 
             /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -X -Dproject.settings=./sonar-project-tracing.properties
-            ls -la
+            
+            # check generated files
             ls -la /tmp/work/other/code/Github_diagrams
-            pwd 
+
+            # just make sure sast looks ok                        
             head -30 BCT_report.sarif
 
 
@@ -108,27 +97,6 @@ jobs:
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: code/BCT_report.sarif
-
-      # - name: Generate diagrams
-      #  uses: addnab/docker-run-action@v3
-      #  with:
-      #    image: richardh65/bct-tools:v11
-      #    options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other/code -w /tmp/work/other/code
-      #    run: |
-      #      pwd
-      #      ls -la
-      #      cd code            
-      #      ls -la *.prop*
-      #      cat sonar-project-diagram.properties grep sonar.mb.flow.diagram.output
-      #      cat sonar-project-diagram.properties grep sonar.projectName
-      #      /usr/local/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=./sonar-project-diagram.properties
-      #      ls -la
-      #      echo ======= Github_diagrams ======
-      #      ls -la Github_diagrams
-      #      echo ======= Github_diagrams/other-diagram-1 ======
-      #      ls -la Github_diagrams/other-diagram-1            
-      #      echo ======= Github_diagrams/other-diagram-1/diagrams ======
-            
             
 
       - name: wiki changes
@@ -136,15 +104,12 @@ jobs:
           cd wiki
           pwd
           ls -la
-          echo ===== making dir          
-          echo changing to diagrams          
-          ls -la
-          ls -la ../code/Github_diagrams
           ls -la ../code/Github_diagrams/FridayApplication-1
           echo === copying files====
           cp -R ../code/Github_diagrams/FridayApplication-1/* .
           echo === after copy ====
           ls -la
+          # setting up git user to push document changes
           git config user.name testuser
           git config user.email tetsuser@bct.com
           git add . | true
