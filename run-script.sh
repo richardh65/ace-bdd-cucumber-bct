@@ -29,7 +29,8 @@ ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplicati
 
 IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test
 
-
+# check if any artefacts appear that we can publish
+ls -la 
 
 # echo ""
 # echo "================ Building and running WholeFlowApplication tests"
