@@ -45,6 +45,13 @@ public class RunCucumberTest
 		jsonValueForDay = "Friday";
 	}
 	
+	// Set up for the Friday test, using JSON data
+	@Given("today is Thursday")
+	public void today_is_thursday() {
+		messageAssemblyName = null;
+		jsonValueForDay = "Thursday";
+	}
+
 	// Actually run the flow
 	@When("I ask whether it's Friday yet")
 	public void i_ask_whether_it_s_friday_yet() throws TestException 
