@@ -77,6 +77,10 @@ jobs:
 
             head -15 /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
 
+            echo "======================== start trace file ========================="
+            cat /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
+            echo "======================== end trace file ========================="
+
             # run the trace ant task - sets up the classpath to make things easier
             /usr/local/ant/apache-ant-1.10.12/bin/ant -f trace_build.xml
             
