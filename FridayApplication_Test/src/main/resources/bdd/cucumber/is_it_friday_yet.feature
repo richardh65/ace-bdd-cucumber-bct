@@ -6,6 +6,13 @@ Feature: Is it Friday yet?
     When I ask whether it's Friday yet
     Then I should be told "no"
 
+
+  Scenario: Thursday isn't Friday
+    Given today is Thursday
+    When I ask whether it's Friday yet
+    Then I should be told "no"
+
+
   Scenario: Friday is Friday
     Given today is Friday
     When I ask whether it's Friday yet

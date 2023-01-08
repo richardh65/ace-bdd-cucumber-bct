@@ -48,7 +48,7 @@ public class RunCucumberTest
 	// Set up for the Friday test, using JSON data
 	@Given("today is Thursday")
 	public void today_is_thursday() {
-		messageAssemblyName = null;
+		messageAssemblyName = "Thursday";
 		jsonValueForDay = "Thursday";
 	}
 

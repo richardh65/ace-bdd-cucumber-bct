@@ -37,6 +37,9 @@ jobs:
             # copy logs to a working area to be picked up by the next step
             mkdir /tmp/work/other/code/trace
             cp /tmp/bdd/FridayApplication-work-dir/config/common/log/integration_server.FridayApplication-work-dir.userTrace.0.txt /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
+
+            cd /tmp/work/other
+            find . -name "Cucumber.html"
             
             
       # from 3rd party action need to reset ownership of artefacts across docker containers running      
