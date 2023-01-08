@@ -39,6 +39,7 @@ jobs:
             cp /tmp/bdd/FridayApplication-work-dir/config/common/log/integration_server.FridayApplication-work-dir.userTrace.0.txt /tmp/work/other/code/trace/integration_server.FridayApplication-work-dir.userTrace.0.txt
 
             cd /tmp/work/other
+            echo "======================== finding cucumber file ========================="            
             find . -name "Cucumber.html"
             
             
