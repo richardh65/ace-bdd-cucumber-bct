@@ -13,9 +13,9 @@ CREATE COMPUTE MODULE MainFlow_Compute
 			SET OutputRoot.JSON.Data.result = 'no';
 		END IF;
 
-		IF InputRoot.JSON.Data.today = 'Thursday' THEN
-			SET OutputRoot.JSON.Data.result = 'no';
-		END IF;			
+		--IF InputRoot.JSON.Data.today = 'Thursday' THEN
+		--	SET OutputRoot.JSON.Data.result = 'no';
+		--END IF;			
 		
 		RETURN TRUE;
 	END;
