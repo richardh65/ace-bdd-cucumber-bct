@@ -7,8 +7,8 @@ Feature: Is it Friday yet?
   #    Then I should be told "no"
 
 
-  Scenario: Friday is Friday
-    Given today is Friday
-    When I ask whether it's Friday yet
-    Then I should be told "yes"
+    Scenario: Friday is Friday
+      Given today is Friday
+      When I ask whether it's Friday yet
+      Then I should be told "yes"
 
