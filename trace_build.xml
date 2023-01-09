@@ -1,9 +1,59 @@
 <?xml version="1.0"?>
 <project name="project" default="consumeTraceFile">
 
+
+	<!--
+	need to run 	 
+	 C:/"Program Files"/IBM/IIB/10.0.0.5/server/bin/mqsiprofile.cmd" 
+	 />
+	 
+	 debug
+	set ANT_OPTS=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5001	 
+	 -->
+	 
+	 <!--
+	 https://www.ibm.com/support/knowledgecenter/en/SSJQQ3_1.3.6/com.ibm.scapi.doc/admin_guide/c_oapi_adminguide_integrateiib_create_queue.html
+	 
+	 SET JAVA_HOME=C:\utils\Java\jdk1.8.0_102
+	 
+	 
+	 runmqsc <queueManager>
+	 define qlocal(STATS) REPLACE
+	 define sub(STATS_SUB) TOPICSTR('$SYS/Broker/+/StatisticsAccounting/Archive/#') DEST(STATS)
+	 REPLACE
+	 
+	 runmqsc testqm1
+	 define qlocal(STATS1) REPLACE
+	 define sub(STATS_SUB1) TOPICSTR('$SYS/Broker/CoverageNode/StatisticsAccounting/Archive/#') DEST(STATS1)
+	 
+	 Successfully opened WebSphere MQ Topic '$SYS/Broker/CoverageNode/Monitoring/CN_EG2/PG2' on queue manager 'testqm1'.
+	 
+	 mqsichangeflowstats <integrationNodeName> -a -c active -g -j -n advanced -t basic -b basic -o xml	 
+	 mqsichangeflowstats CoverageNode -a -c active -g -j -n advanced -t basic -b basic -o xml	 
+	 
+	 ??
+	 mqsichangetrace CoverageNode -u -e <eg_name> -f <flow_name> -l debug -c 20000 –r 	 
+	 -->
+	 
+	 <!--
+	 setps:
+	 
+	 update bar file
+	 
+	 turn on debug
+	 mqsichangetrace <broker_name> -u -e <eg_name> -f <flow_name> -l debug -c 20000 –r 
+
+	 run tests
+	 
+	 mqsireadlog <broker_name> -u -e <eg_name> -o usertrace.xml
+	 mqsiformatlog -i usertrace.xml -o usertrace.txt
+
+	 mqsichangetrace <broker_name> -u -e <eg_name> -f <flow_name> -l none -c 20000 –r	 
+	 -->
+
 			
 	<path id="project.classpath">		
-		<pathelement location="/tmp/work/bct/lib/MB-precise-sonarplugin-3.123.jar" />
+		<pathelement location="/tmp/work/bct/lib/MB-precise-sonarplugin-3.124.jar" />
 				
 		<pathelement location="/tmp/work/bct/lib/commons-io-2.7.jar"/>
 		<pathelement location="/tmp/work/bct/lib/commons-lang-2.6.jar"/>
@@ -46,37 +96,7 @@
 
 
 
-<!--
-	
-	<echo message="==============================================" />
-	<echo message="delete trace config" />
-	<echo message="==============================================" />
-	<delete file="/tmp/work/other/code/test_work_dir/server.conf.yaml" quiet="false" failonerror="true" verbose="true" />
-	
-	<echo message="==============================================" />
-	<echo message="copy trace config" />
-	<echo message="==============================================" />
-	<copy file="/tmp/work/other/code/config/server.conf.yaml" 
-			todir="/tmp/work/other/code/test_work_dir" force="true" failonerror="true" />
-	<echo message="==============================================" />	
-	
-	
 
-	<echo message="==============================================" />
-	<echo message="copy policy" />
-	<echo message="==============================================" />
-	<copy file="/tmp/work/other/code/bars/SimplePolicyTestable.bar" 
-			todir="/tmp/work/other/code/test_work_dir/run" />
-	<echo message="==============================================" />	
-
-	<echo message="==============================================" />
-	<echo message="copy project" />
-	<echo message="==============================================" />			
-	<copy file="/tmp/work/other/code/BarFiles/UnitTests.bar" 
-			todir="/tmp/work/other/code/test_work_dir/run" />
-			
-			
--->	
 
 <target name="consumeTraceFile" depends="init">
 	
@@ -106,7 +126,7 @@
 		   
         
  </target>
- 
+
   
  
 </project>
