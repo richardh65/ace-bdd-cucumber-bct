@@ -61,7 +61,7 @@ jobs:
       - name: Process coverage and generate diagrams
         uses: addnab/docker-run-action@v3
         with:
-          image: richardh65/bct-tools:v12
+          image: richardh65/bct-tools:v13
           options: --env LICENSE=accept -v ${{ github.workspace }}:/tmp/work/other -w /tmp/work/other/code
           run: |            
             echo "======================== extracting coverage v1.0 ========================="
