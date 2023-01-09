@@ -88,6 +88,10 @@ jobs:
             # just make sure coverage looks ok
             ls -la /tmp/work/other/code/coveragetemp
             head -30 /tmp/work/other/code/coveragetemp/coverage.xml
+
+            echo "======================== Coverage file ========================="
+            cat /tmp/work/other/code/coveragetemp/coverage.xml
+            echo "======================== Coverage done ========================="
             
             echo "======================== running sonarqube analysis ========================="
 
