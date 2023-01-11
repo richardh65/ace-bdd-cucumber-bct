@@ -8,9 +8,9 @@ CREATE COMPUTE MODULE MainFlow_Compute
 		SET OutputRoot.Properties = InputRoot.Properties;
 		
 		IF InputRoot.JSON.Data.today = 'Friday' THEN
-			SET OutputRoot.JSON.Data.result = 'yes';		
+			SET OutputRoot.JSON.Data.result = 'no';		
 		ELSE	
-			SET OutputRoot.JSON.Data.result = 'no';
+			SET OutputRoot.JSON.Data.result = 'yes';
 		END IF;		
 		
 		RETURN TRUE;
