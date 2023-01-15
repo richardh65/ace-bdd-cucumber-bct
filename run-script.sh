@@ -40,6 +40,7 @@ IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msg
 if $(cat test1.txt | grep -q "org.opentest4j.AssertionFailedError"); then
     echo "found org.opentest4j.AssertionFailedError"
     exit -1
+fi     
 
 
 # org.opentest4j.AssertionFailedError
