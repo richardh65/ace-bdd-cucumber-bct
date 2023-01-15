@@ -27,19 +27,16 @@ cd /tmp/work/other/code
             
 ibmint deploy --input-path $PWD --output-work-directory /tmp/bdd/FridayApplication-work-dir --project FridayApplication --project FridayApplication_Test --trace trace.txt
 
-IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test > test1.txt >2 test2.txt 
+IntegrationServer -w /tmp/bdd/FridayApplication-work-dir --no-nodejs --start-msgflows no --test-project FridayApplication_Test 
 
-cat test1.txt 
+if [ $? -eq 0 ] 
+then 
+  echo "finished tests" 
+else 
+  # echo "tests failed" >&2 
+  exit -1
+fi
 
-cat test2.txt
-
-if $(cat test1.txt | grep -q "org.opentest4j.AssertionFailedError"); then
-    echo "found org.opentest4j.AssertionFailedError"
-    exit -1
-
-if $(cat test2.txt | grep -q "org.opentest4j.AssertionFailedError"); then
-    echo "found org.opentest4j.AssertionFailedError"
-    exit -1
 
 # org.opentest4j.AssertionFailedError
 
